@@ -76,24 +76,3 @@ if st.button('Diagnose'):
     st.markdown(f"<h3>患者属于肺炎支原体混合细菌感染的概率为 <span style='color:red;'>{aki_probability * 100:.2f}%</span></h3>", unsafe_allow_html=True)
     st.markdown("参考截断值为12%，在此截断值下灵敏度为0.981，特异性为0.839", unsafe_allow_html=True)
     st.markdown("下图中向右的箭头表示这个指标使结果更偏向于混合感染类，箭头越长作用越强，反之亦然", unsafe_allow_html=True)
-#SHAP力图
-# 创建特征数据 DataFrame，确保包含正确的列名
-feature_data = pd.DataFrame([scaled_features_selected[0]], columns=selected_features)
-features_df = pd.DataFrame([input_features],columns=selected_features)
-# 重新计算 SHAP 值
-explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(feature_data)
-# 使用 matplotlib 绘制并保存 SHAP 力图
-fig, ax = plt.subplots()
-shap.force_plot(
-    explainer.expected_value[0],  # 基值
-    shap_values[0,:,1],  # SHAP值
-    features_df.iloc[0],  # 特征数据
-    feature_names=selected_features,  # 特征名称
-    matplotlib=True
-)
-plt.savefig("shap_force_plot.png", bbox_inches='tight', dpi=1200)
-plt.close()
-
-# 在 Streamlit 应用中展示这个图片
-st.image("shap_force_plot.png")
