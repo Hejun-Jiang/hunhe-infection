@@ -75,4 +75,3 @@ aki_probability = predicted_probs[0][1]
 if st.button('Diagnose'):
     st.markdown(f"<h3>患者属于肺炎支原体混合细菌感染的概率为 <span style='color:red;'>{aki_probability * 100:.2f}%</span></h3>", unsafe_allow_html=True)
     st.markdown("参考截断值为12%，在此截断值下灵敏度为0.981，特异性为0.839", unsafe_allow_html=True)
-    st.markdown("下图中向右的箭头表示这个指标使结果更偏向于混合感染类，箭头越长作用越强，反之亦然", unsafe_allow_html=True)
